@@ -1,8 +1,8 @@
 import { Form, Formik, ErrorMessage } from 'formik';
 import { InputFilter } from './Filter.styled';
 import PropTypes from 'prop-types';
-import { setStatusFilter } from 'redux/filterSlice';
 import { useDispatch } from 'react-redux';
+import { setStatusFilter } from 'redux/contacts/filterSlice';
 
 const initialValues = {
   filter: '',
