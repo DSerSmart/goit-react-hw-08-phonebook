@@ -4,7 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { useAuth } from '../hooks/useAuth';
 import { refresh } from 'redux/auth/operations';
+import { Loader } from './Loaders/Loader';
 
 const HomePage = lazy(() => import('../pages/MainPage'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -13,12 +15,15 @@ const PhoneBook = lazy(() => import('../pages/PhoneBook'));
 
 export const App = () => {
   const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refresh());
   }, [dispatch]);
 
-  return (
+  return isRefreshing ? (
+    <Loader isOpen={isRefreshing} />
+  ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
